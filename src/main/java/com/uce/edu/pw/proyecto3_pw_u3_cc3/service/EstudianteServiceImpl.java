@@ -1,10 +1,16 @@
 package com.uce.edu.pw.proyecto3_pw_u3_cc3.service;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uce.edu.pw.proyecto3_pw_u3_cc3.modelo.Estudiante;
 import com.uce.edu.pw.proyecto3_pw_u3_cc3.repository.iEstudianteRepository;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 @Service
 public class EstudianteServiceImpl implements iEstudianteService {
@@ -36,6 +42,18 @@ public class EstudianteServiceImpl implements iEstudianteService {
         // TODO Auto-generated method stub
         this.estudianteRepository.eliminar(id);
 
+    }
+
+    @Override
+    public List<Estudiante> buscarTodos() {
+
+        return this.estudianteRepository.buscarTodos();
+    }
+
+    @Override
+    public Estudiante buscarSalario(BigDecimal salario) {
+        // TODO Auto-generated method stub
+        return this.estudianteRepository.buscarSalario(salario);
     }
 
 }
