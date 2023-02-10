@@ -16,33 +16,34 @@ import com.uce.edu.pw.proyecto3_pw_u3_cc3.service.iProfesorService;
 @RestController
 @RequestMapping("/profesores")
 public class ProfesorControllerRestFul {
+
     @Autowired
-    private iProfesorService profesorServi;
+    private iProfesorService profesorService;
 
     @GetMapping(path = "/{id}")
-	public Profesor encontrar(@PathVariable("id") Integer id) {
-        return this.profesorServi.encontrar(id);
+    public Profesor encontrar(@PathVariable("id") Integer id) {
+        return this.profesorService.encontrar(id);
     }
 
     @GetMapping(path = "/cedula/{cedula}")
     public Profesor encontrarPorCedula(@PathVariable("cedula") String cedula) {
-        return this.profesorServi.encontrarPorCedula(cedula);
+        return this.profesorService.encontrarPorCedula(cedula);
     }
 
     @DeleteMapping(path = "/{id}")
-	public void borrar(@PathVariable("id") Integer id) {
-        this.profesorServi.borrar(id);
+    public void borrar(@PathVariable("id") Integer id) {
+        this.profesorService.borrar(id);
     }
 
     @PostMapping
-    public void registrar(@RequestBody Profesor profesor) {
-		// TODO Auto-generated method stub
-		this.profesorServi.registrar(profesor);
-	}
+    public void registrar(Profesor profesor) {
+        // TODO Auto-generated method stub
+        this.profesorService.registrar(profesor);
+    }
 
     @PutMapping(path = "/{id}")
-    public void actualizar(@PathVariable("id") Integer id , @RequestBody Profesor profesor) {
-		// TODO Auto-generated method stub
-		this.profesorServi.actualizar(profesor);
-	}
+    public void actualizar(@PathVariable("id") Integer id, @RequestBody Profesor profesor) {
+        // TODO Auto-generated method stub
+        this.profesorService.actualizar(profesor);
+    }
 }

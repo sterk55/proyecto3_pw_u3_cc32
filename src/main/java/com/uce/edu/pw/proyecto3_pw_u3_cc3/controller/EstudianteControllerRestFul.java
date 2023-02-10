@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +28,18 @@ public class EstudianteControllerRestFul {
     private iEstudianteService estudianteService;
 
     @PostMapping
-    public void registrar(Estudiante estudiante) {
+    public void registrar(@RequestBody Estudiante estudiante) {
         this.estudianteService.registrar(estudiante);
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Estudiante> encontrarR(@PathVariable("id") Integer id) {
+        HttpHeaders cabeceras = new HttpHeaders();
+        cabeceras.add("detalleMensaje", "Estudiante econtrado correctamente");
+
+        Estudiante est = this.estudianteService.encontrar(id);
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(est);
     }
 
     @PutMapping(path = "/{id}")
@@ -43,9 +56,12 @@ public class EstudianteControllerRestFul {
     }
 
     @GetMapping(path = "/buscar")
-    public List<Estudiante> buscarTodos() {
-
-        return this.estudianteService.buscarTodos();
+    public ResponseEntity<List<Estudiante>> buscarTodos() {
+        HttpHeaders cabeceras = new HttpHeaders();
+        cabeceras.add("detalleMensaje", "Estudiante econtrado correctamente");
+        cabeceras.add("ValoraCalculado", "100");
+        List<Estudiante> est = this.estudianteService.buscarTodos();
+        return new ResponseEntity<>(est, cabeceras, 230);
     }
 
     @DeleteMapping(path = "/{id}")
